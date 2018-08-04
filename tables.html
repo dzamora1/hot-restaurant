@@ -46,10 +46,28 @@
     </div>
     </div>
     </div>
-    <script>
+    <script type="text/javascript">
 
-      
-      
+      $.get("/api/reservations", function(data) {
+        for (var i = 0; i < data.length; i++) {
+          var reservationsSection = $("<div>");
+          reservationsSection.addClass("well");
+          reservationsSection.attr("id", "reservation-well" + i);
+          $("#tableList").append(reservationsSection);
+          $("#reservation-well" + i).append(data[i].id);
+        }
+      });
+
+            $.get("/api/waitlist", function(data) {
+        for (var i = 0; i < data.length; i++) {
+          var waitSection = $("<div>");
+          waitSection.addClass("well");
+          waitSection.attr("id", "wait-well" + i);
+          $("#waitList").append(waitSection);
+  
+          $("#wait-well" + i).append(data[i].id );
+        }
+      });
     </script>
    
 </body>
