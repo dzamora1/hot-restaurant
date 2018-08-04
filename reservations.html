@@ -42,12 +42,36 @@
                                 <label for="user-id">Unique Id:</label>
                                 <input type="unique-id" class="form-control" id="user-id">
                             </div>
-                            <button class="btn btn-primary btn-lg">Submit</button>
+                            <button class="btn btn-primary btn-lg" id="submit">Submit</button>
                         </form>
                     </div>
                 </div>
             </div>
         </div>                               
     </div>
+
+    <script type="text/javascript">
+        // Question: What does this code do?
+        $("#submit").on("click", function(event) {
+          event.preventDefault();
+    
+          var newUser = {
+            name: $("#user-name").val().trim(),
+            phone: $("#user-phone").val().trim(),
+            email: $("#user-email").val().trim(),
+            id: $("#user-id").val().trim()
+          };
+    
+          // Question: What does this code do??
+          $.post("/api/reservations", newUser)
+            .then(function(data) {
+              console.log(data);
+              alert("Adding to reservations...");
+            });
+    
+        });
+      </script>
+
+
 </body>
 </html>
