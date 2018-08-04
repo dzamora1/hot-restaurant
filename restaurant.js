@@ -28,22 +28,27 @@ app.get("/api/reservations", function(req, res){
     return res.json(reservations);
 });
 
+app.get("/api/waitlist", function(req, res){
+    return res.json(waitlist);
+});
+
 app.post("/api/reservations", function(req,res){
 
     var newUser = req.body;
-    console.log(newUser);
+    console.log("Adding to reservations: \n" + newUser);
+    reservations.push(newUser);
+    console.log(reservations);
 
-    if(reservations.length < 5){
+});
 
-        reservations.push(newUser)
+app.post("/api/waitlist", function(req,res){
 
-    }else{
+    var newUser = req.body;
+    console.log("Adding to waitlist: \n" + newUser);
+    waitlist.push(newUser);
 
-        waitlist.push(newUser);
+});
 
-    }
-
-})
 
 app.listen(PORT, function(){
     console.log("App listening on PORT" + PORT);

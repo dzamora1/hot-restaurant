@@ -6,8 +6,6 @@
     <title>Reservation Page</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
-    <link rel="stylesheet" type="text/css" media="screen" href="main.css" />
-    <script src="main.js"></script>
     <script src="https://code.jquery.com/jquery.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
 </head>
@@ -53,7 +51,8 @@
     </div>
 
     <script type="text/javascript">
-        // Question: What does this code do?
+
+    
         $("#submit").on("click", function(event) {
           event.preventDefault();
     
@@ -63,15 +62,29 @@
             email: $("#user-email").val().trim(),
             id: $("#user-id").val().trim()
           };
+
+        $("#user-name").val("");
+        $("#user-phone").val("");
+        $("#user-email").val("");
+        $("#user-id").val("");
+
+          $.get("/api/reservations", function(data) {
+                if(data.length < 5) {
+                    $.post("/api/reservations", newUser)
+                        .then(function(data){
+                            console.log(data);
+                            alert("Adding to reservations...");
+                        })
+                }else {
+                    $.post("/api/waitlist", newUser) 
+                    .then(function(data){
+                        console.log(data);
+                        alert("Our tables are full, you will be put on the waitlist");
+                    })
+                }
+            })
+        });    
     
-          // Question: What does this code do??
-          $.post("/api/reservations", newUser)
-            .then(function(data) {
-              console.log(data);
-              alert("Adding to reservations...");
-            });
-    
-        });
       </script>
 
 
